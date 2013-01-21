@@ -108,24 +108,6 @@ function deleteAllRecords() {
         }
     }
 }
-/**
- * fonction qui efface la ligne 
- */
-window.indexedDB.deleteTodo = function(e) {
-        var db = window.indexedDB.db;
-        var transaction = db.transaction(["table_flux"], "readwrite");
-        var store = transaction.objectStore("table_flux");
-      
-        var request = store.delete(e.target.result);
-      
-        request.onsuccess = function(e) {
-         displayList(event.target.result);
-        };
-      
-        request.onerror = function(e) {
-          console.log("Error Adding: ", e);
-        };
-      };
 	  
 	  
 // on ajoute un listener sur le load de la fenêtre, pour remplir
@@ -175,15 +157,15 @@ function displayList(db) {
 	//Listenner pour suppression
 	tdSuppresion.addEventListener('click', function() {
 	
-			// on ouvre la base, et on déclare les listeners
-		var request = window.webkitIndexedDB.open("BDFlux", 1);
-		request.onerror = errorOpen;
-		request.onupgradeneeded = createDatabase;
+		// on ouvre la base, et on déclare les listeners
+	var request = window.webkitIndexedDB.open("BDFlux", 1);
+	request.onerror = errorOpen;
+	request.onupgradeneeded = createDatabase;
 
-		request.onsuccess = function(event) {
-		window.webkitIndexedDB.clear();
-		}
-	
+	request.onsuccess = function(event) {
+	window.webkitIndexedDB.clear();
+	}
+
 	}, false);
 	
         if (cursor) {
@@ -200,7 +182,6 @@ function displayList(db) {
             var tdCategorie = document.createElement('td');
             tdCategorie.textContent = _flux.categorie;
             tr.appendChild(tdCategorie);
-			
 			
 			tdSuppresion.textContent= "[supprimer]";
 			tr.appendChild(tdSuppresion);
