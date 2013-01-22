@@ -1,4 +1,3 @@
-
 /**
  * fonction chargée de créer la base de donnée si elle n'existe pas
  * ou si elle nécessite une mise à jour.
@@ -124,7 +123,37 @@ window.addEventListener('load', function(event) {
     }
 }, false);
 
+/**
+ * fonction qui efface la ligne séléctionnée (avec le bouton supprimer)
+ */
+function delete_parcours(id){
+	console.log(typeof(id));
+	var id=parseInt(id);
+	
+	var request2 = window.webkitIndexedDB.open("BDFlux", 1);
+    request2.onerror = errorOpen;
+    request2.onupgradeneeded = createDatabase;
+	request2.onsuccess=function(event){
+	
+	var db = event.target.result; 
+	var transaction = db.transaction(["table_flux"], "readwrite");
 
+	var fluxStore = transaction.objectStore("table_flux");	var request=fluxStore.delete(id);
+
+    request.onsuccess=function (e){
+		displayList(event.target.result);
+		
+    }
+    request.onerror = function(e) {
+		console.log(e+"error");
+	}
+
+}
+}
+
+/**
+ * fonction qui permet d'afficher le contenu de la BD
+ */
 function displayList(db) {
 
     // on ouvre une transaction qui permettra d'effectuer
@@ -152,21 +181,6 @@ function displayList(db) {
     fluxStore.openCursor().onsuccess = function (event) {
 
     var cursor = event.target.result;
-	var tdSuppresion=document.createElement('td');
-	
-	//Listenner pour suppression
-	tdSuppresion.addEventListener('click', function() {
-	
-		// on ouvre la base, et on déclare les listeners
-	var request = window.webkitIndexedDB.open("BDFlux", 1);
-	request.onerror = errorOpen;
-	request.onupgradeneeded = createDatabase;
-
-	request.onsuccess = function(event) {
-	window.webkitIndexedDB.clear();
-	}
-
-	}, false);
 	
         if (cursor) {
 	
@@ -183,9 +197,10 @@ function displayList(db) {
             tdCategorie.textContent = _flux.categorie;
             tr.appendChild(tdCategorie);
 			
-			tdSuppresion.textContent= "[supprimer]";
+			var tdSuppresion=document.createElement('td');
+			tdSuppresion.innerHTML='<input type="button" value="supprimer" onclick="delete_parcours('+_flux.id+');" />';
 			tr.appendChild(tdSuppresion);
-			
+	
             list.appendChild(tr);
 			
 			
