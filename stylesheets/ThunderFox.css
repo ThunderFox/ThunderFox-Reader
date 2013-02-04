@@ -1,0 +1,117 @@
+body{
+background-color:#F4F4EE; 
+font:13px tahoma,Geneva,sans-serif; 
+text-align:left;
+}
+
+.ListRss {
+    width:450px;
+    padding: 0px 3px 3px 5px;
+	background-color:#FFF;
+	border:1px solid #D3CAD7;
+	margin-top:3px;
+}
+
+.ItemTitle{
+ font-weight:bold;
+ margin:5px 0px 0px 0px;
+ padding-top:3px;
+}
+.ItemTitle a{ color:#4EBAFF; text-decoration:none }
+.ItemTitle a:hover{ text-decoration:underline }
+
+.ItemContent{
+ padding:1px 3px 3px 3px;
+ border-bottom:1px solid #D3CAD7;
+ color:#3E3E3E;
+}
+.ItemDate{
+font-size:11px;
+color:#AAA;
+}
+
+.divSrc
+{
+color:#888888;
+font-size:11px;
+width:460px;
+}
+
+#frame{
+	height:400px;
+	width:550px;
+	overflow : auto;
+	border: 1px solid black;
+	display:inline-block;
+	padding: 10px;
+ }
+
+ /* CSS pour les onglets */
+ 
+ #container {
+	position: relative;
+	width: 89%;
+	height: 5%;
+	/* margin: 3em auto; */
+	text-align: left;
+	/* border: 3px solid #AF4C5C; */
+	/* background-color: #AF4C5C; */
+	font-size: xx-small ;
+}
+#container * {
+	margin: 0;
+	padding: 0;
+}
+#container ul#menu_onglets {
+	position: relative;
+	width: 100%;
+	font-weight: bold;
+}
+#container ul#menu_onglets li {
+	float: left;
+	display: inline;
+}
+#container ul#menu_onglets li a {
+	text-align: center;
+	display: block;
+	width: 94px;
+	height: 25px;
+	line-height: 25px;
+	text-decoration: none;
+}
+#container ul#menu_onglets li a:hover {
+	background-color: white;
+}
+#container h1,
+#container h2 {
+	margin: 0.5em 0 0.5em 0;
+	font-size: 1.4em;
+}
+#container .content {
+	padding: 1em 2em;
+	margin: -2px 0 0 0;
+	_margin: -16px 0 0 0;
+	background-color: #FDE3EA;
+}
+#container hr {
+	clear: both;
+	visibility: hidden;
+}
+#container a.current {
+	border-right:1px solid black;
+	background-color: silver;
+	background-image: url('images/site/onglet_current.jpg');
+	color: #000;
+}
+#container a.ghost  {
+	border-right:1px solid black;
+	background-color: grey;
+	background-image: url('images/site/onglet_ghost.jpg');
+	color: #000;
+}
+.on {
+	display: block;
+}
+.off {
+	display: none;
+}

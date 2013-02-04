@@ -1,49 +1,61 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" media="screen" type="text/css" title="Design" href="./stylesheets/ThunderFox.css" />
+<title>Thunder Fox</title>
 
-  <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Thunderfox-reader : lecteur de flux RSS" />
+<script type="text/javascript" src="javascripts/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="javascripts/thunderfox.js"></script>
+</head>
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+<body>
+<h1> Thunder Fox </h1>
 
-    <title>Thunderfox-reader</title>
-  </head>
+<div id="container">
+	<ul id="menu_onglets">
+		<li class="menu1">
+			<a href="#" id="_1" class="current" onclick="multiClass(this.id)" alt="menu1" title="Actualité">Actualité</a>
+		</li>
+		<li class="menu2">
+			<a href="#" id="_2" class="ghost" onclick="multiClass(this.id)" alt="menu2" title="Sport">Sport</a>
+		</li>
+		<li class="menu3">
+			<a href="#" id="_3" class="ghost" onclick="multiClass(this.id)" alt="menu3" title="Économie">Économie</a>
+		</li>
+		<li class="menu4">
+			<a href="#" id="_4" class="ghost" onclick="multiClass(this.id)" alt="menu4" title="Technologies">Technologies</a>
+		</li>
+		<li class="menu5">
+			<a href="#" id="_5" class="ghost" onclick="multiClass(this.id)" alt="menu5" title="Culture">Culture</a>
+		</li>
+		<li class="menu6">
+			<a href="#" id="_6" class="ghost" onclick="multiClass(this.id)" alt="menu6" title="Divers">Divers</a>
+		</li>
+	<hr />
+</div>
 
-  <body>
+<div id="frame"><br />
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/ThunderFox/ThunderFox-Reader">View on GitHub</a>
+	<div id="menu_1" class="on content"></div>
 
-          <h1 id="project_title">Thunderfox-reader</h1>
-          <h2 id="project_tagline">lecteur de flux RSS</h2>
+	<div id="menu_2" class="off content"></div>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/ThunderFox/ThunderFox-Reader/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/ThunderFox/ThunderFox-Reader/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
+	<div id="menu_3" class="off content"></div>
+	
+	<div id="menu_4" class="off content"></div>
+	
+	<div id="menu_5" class="off content"></div>
+	
+	<div id="menu_6" class="off content"></div>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <p>This project is a RSS reader to FFOS.</p>
-      </section>
-    </div>
+</div>
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Thunderfox-reader maintained by <a href="https://github.com/ThunderFox">ThunderFox</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
 
-    
+<br/><br/>
+<a href="#" style="color:#888888;text-decoration:none;">Return To FeedEk HomePage</a>
+  
 
-  </body>
+</body>
+
 </html>
