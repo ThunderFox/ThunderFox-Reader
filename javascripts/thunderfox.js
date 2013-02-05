@@ -34,21 +34,21 @@ if (! $('#chkDesc'+numRss).attr('checked')) showDescription=false;
 
 (function($){
 	$.fn.FeedEk=function(opt){
-		var def={FeedUrl:'',MaxCount:5,ShowDesc:true,ShowPubDate:true};
+		var def={FeedUrl:'',MaxCount:5};
 		if(opt){$.extend(def,opt)}
 		var idd=$(this).attr('id');
 		if(def.FeedUrl==null||def.FeedUrl==''){
 			$('#'+idd).empty();return
 		}
-		var pubdt;$('#'+idd).empty().append('<div style="text-align:left; padding:3px;"><img src="loader.gif" /></div>');
+		var pubdt;
+		//$('#'+idd).empty().append('<div style="text-align:left; padding:3px;"><img src="loader.gif" /></div>');
 		$.ajax({url:'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num='+def.MaxCount+'&output=json&q='+encodeURIComponent(def.FeedUrl)+'&callback=?',dataType:'json',success:function(data){$('#'+idd).empty();
-		$.each(data.responseData.feed.entries,function(i,entry){$('#'+idd).append('<div class="ItemTitle"><a href="'+entry.link+'" target="_blank" >'+entry.title+'</a></div>');
-		if(def.ShowPubDate){
+		$.each(data.responseData.feed.entries,function(i,entry){
 			pubdt=new Date(entry.publishedDate);
-			$('#'+idd).append('<div class="ItemDate">'+pubdt.toLocaleDateString()+'</div>')
-		}
-		if(def.ShowDesc)
-		$('#'+idd).append('<div class="ItemContent">'+entry.content+'</div>')})}})
+			$('#'+idd).append('<em class="aside end"><time>'+pubdt.toLocaleDateString()+'</time></em>')
+			$('#'+idd).append('<dl><dt>'+entry.title+'</dt><dd><span>'+entry.content+'</span></dd></dl>');
+			
+		})}})
 	}
 })
 (jQuery);
@@ -190,21 +190,17 @@ function displayList(db) {
 			rss_div += '<div class=\"ListRss\">';
 			rss_div += '<div id=\"divRss'+i+'\"></div><br/>';
 			rss_div += '</div><br/>';
-	
-			new_div.innerHTML = rss_div;
+			
+			var rss_div2 = '<em class\"aside\"></em>';
+			rss_div2 += '<div id=\"divRss'+i+'\"></div><br/>';
+			
+			new_div.innerHTML = rss_div2;
 			reference_flux.appendChild(new_div);
 
-			
-			$('#txtUrl'+i).val(tdFluxLink.textContent);
-			  $('#txtCount'+i).val('3');
-			  $('#chkDate'+i).attr('checked','checked');
-			  $('#chkDesc'+i).attr('checked','checked');
 			  
 			  $('#divRss'+i).FeedEk({
 			   FeedUrl : tdFluxLink.textContent,
 			   MaxCount : 3,
-			   ShowDesc : true,
-			   ShowPubDate: true
 			  });
 			
             // on avance le curseur -> la callback onsuccess

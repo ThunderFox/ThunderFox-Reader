@@ -2,58 +2,54 @@
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="stylesheet" media="screen" type="text/css" title="Design" href="./stylesheets/ThunderFox.css" />
+<link rel="stylesheet" media="screen" type="text/css" href="./stylesheets/ThunderFox.css" />
+<link rel="stylesheet" media="screen" type="text/css" href="./stylesheets/headers_tf.css" />
+<link rel="stylesheet" media="screen" type="text/css" href="./stylesheets/lists_tf.css" />
 <title>Thunder Fox</title>
 
 <script type="text/javascript" src="javascripts/jquery-1.6.2.min.js"></script>
 <script type="text/javascript" src="javascripts/thunderfox.js"></script>
 </head>
 
-<body>
-<h1> Thunder Fox </h1>
+<body role="application">
 
-<div id="container">
-	<ul id="menu_onglets">
-		<li class="menu1">
-			<a href="#" id="_1" class="current" onclick="multiClass(this.id)" alt="menu1" title="Actualité">Actualité</a>
-		</li>
-		<li class="menu2">
-			<a href="#" id="_2" class="ghost" onclick="multiClass(this.id)" alt="menu2" title="Sport">Sport</a>
-		</li>
-		<li class="menu3">
-			<a href="#" id="_3" class="ghost" onclick="multiClass(this.id)" alt="menu3" title="Économie">Économie</a>
-		</li>
-		<li class="menu4">
-			<a href="#" id="_4" class="ghost" onclick="multiClass(this.id)" alt="menu4" title="Technologies">Technologies</a>
-		</li>
-		<li class="menu5">
-			<a href="#" id="_5" class="ghost" onclick="multiClass(this.id)" alt="menu5" title="Culture">Culture</a>
-		</li>
-		<li class="menu6">
-			<a href="#" id="_6" class="ghost" onclick="multiClass(this.id)" alt="menu6" title="Divers">Divers</a>
-		</li>
-	<hr />
-</div>
+		<section role="region">
+				<header>
+					<a href="thunderfox.html"><span class="icon icon-back">back</span></a>
+					<menu type="toolbar">
+						<a href="#"><span class="icon icon-menu">menu</span></a>
+						<a href="#"><span class="icon icon-refresh">refresh</span></a>
+					</menu>
+					<h1>ThunderFox</h1>
+				</header>
+				<header>
+					<h2>Toutes les news</h2>
+				</header>
+		</section>
 
-<div id="frame"><br />
-
-	<div id="menu_1" class="on content"></div>
-
-	<div id="menu_2" class="off content"></div>
-
-	<div id="menu_3" class="off content"></div>
 	
-	<div id="menu_4" class="off content"></div>
-	
-	<div id="menu_5" class="off content"></div>
-	
-	<div id="menu_6" class="off content"></div>
+		<div style="background: url(./stylesheets/images/example-notifications.png),
+           no-repeat center center; background-size: 100% auto;">
+		   
+		<ul class="overlay">
+			<li id="menu_1" data-state="withSource" data-tag="new"></li>
 
-</div>
+			<li id="menu_2" data-state="withSource" data-tag="sport"></li>
+			
+			<li id="menu_3" data-state="withSource" data-tag="economie"></li>
+			
+			<li id="menu_4" data-state="withSource" data-tag="technologie"></li>
+			
+			<li id="menu_5" data-state="withSource" data-tag="culture"></li>
+			
+			<li id="menu_6" data-state="withSource" data-tag="people"></li>
+		</ul>
+		
 
 
-<br/><br/>
-<a href="#" style="color:#888888;text-decoration:none;">Return To FeedEk HomePage</a>
+
+	<br/><br/>
+	<a href="#" style="color:#888888;text-decoration:none;">Return To FeedEk HomePage</a>
   
 
 </body>
