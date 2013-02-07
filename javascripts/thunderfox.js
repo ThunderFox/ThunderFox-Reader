@@ -42,13 +42,14 @@ if (! $('#chkDesc'+numRss).attr('checked')) showDescription=false;
 		}
 		var pubdt;
 		//$('#'+idd).empty().append('<div style="text-align:left; padding:3px;"><img src="loader.gif" /></div>');
-		$.ajax({url:'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num='+def.MaxCount+'&output=json&q='+encodeURIComponent(def.FeedUrl)+'&callback=?',dataType:'json',success:function(data){$('#'+idd).empty();
-		$.each(data.responseData.feed.entries,function(i,entry){
-			pubdt=new Date(entry.publishedDate);
-			$('#'+idd).append('<em class="aside end"><time>'+pubdt.toLocaleDateString()+'</time></em>')
-			$('#'+idd).append('<dl><dt>'+entry.title+'</dt><dd><span>'+entry.content+'</span></dd></dl>');
-			
-		})}})
+		$.ajax({url:'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num='+def.MaxCount+'&output=json&q='+encodeURIComponent(def.FeedUrl)+'&callback=?',dataType:'json',success:function(data){
+			$('#'+idd).empty();
+			$.each(data.responseData.feed.entries,function(i,entry){
+				pubdt=new Date(entry.publishedDate);
+				$('#'+idd).append('<li><em class\"aside\"></em><em class="aside end"><time>'+pubdt.toLocaleDateString()+'</time></em><dl><dt>'+entry.title+'</dt><dd><span>'+entry.content+'</span></dd></dl></li>');
+			})
+			$('#'+idd).append('</li>');
+		}})
 	}
 })
 (jQuery);
@@ -165,43 +166,43 @@ function displayList(db) {
 			//ON AFFICHE LES FLUX RSS (au chargement de la page) ICI !!!
 			var new_div = document.createElement('div');
 			var categorie = tdCategorie.textContent.substring(0,4);
-			if(categorie == 'Actu')
+			
+			if(categorie == 'Actu'){
 				var reference_flux = document.getElementById('menu_1');
-			else if(categorie == 'Spor')
+				var rss_li = '<li data-state=\"withSource\" data-tag=\"new\">';
+			}
+			else if(categorie == 'Spor'){
 				var reference_flux = document.getElementById('menu_2');
-			else if(categorie == 'Econ')
+				var rss_li = '<li data-state=\"withSource\" data-tag=\"sport\">';
+			}
+			else if(categorie == 'Econ'){
 				var reference_flux = document.getElementById('menu_3');
-			else if(categorie == 'Tech')
+				var rss_li = '<li data-state=\"withSource\" data-tag=\"economie\">';
+			}	
+			else if(categorie == 'Tech'){
 				var reference_flux = document.getElementById('menu_4');
-			else if(categorie == 'Cult')
+				var rss_li = '<li data-state=\"withSource\" data-tag=\"technologie\">';
+			}	
+			else if(categorie == 'Cult'){
 				var reference_flux = document.getElementById('menu_5');	
-			else
-				var reference_flux = document.getElementById('menu_6');	
+				var rss_li = '<li data-state=\"withSource\" data-tag=\"culture\">';
+			}	
+			else{
+				var reference_flux = document.getElementById('menu_6');
+				var rss_li = '<li data-state=\"withSource\" data-tag=\"people\">';
+			}	
 			
-			var rss_div = '<span><a href=\"javascript:OpenBox();\" style=\"color:#888888;text-decoration:none;font-size:medium;\">'+tdTitre.textContent+'</a></span>';
-			rss_div += '<div class=\"divSrc\" style=\"display:none\">';
-			rss_div += '<div>Url:<input id=\"txtUrl'+i+'\" type=\"text\" style=\"width:440px;font-size:12px;\" disabled=\"disabled\"/></div>';
-			rss_div += '<div style=\"float:left; width:100px\">Count:<input id=\"txtCount'+i+'\" type=\"text\"  style=\"width:30px;\" /></div>';
-			rss_div += '<div style=\"float:left;width:100px\">Show Date:<input id=\"chkDate'+i+'\" type=\"checkbox\" /></div>';
-			rss_div += '<div style=\"float:left;width:100px\">Show Desc:<input id=\"chkDesc'+i+'\" type=\"checkbox\" /></div>';
-			rss_div += '<div style=\"float:right\"><input type=\"button\" value=\"Get Feeds\" style=\"width:80px\" onclick=\"javascript:changeFeedUrl(\''+i+'\');\" /></div>';
-			rss_div += '<div style=\"clear:both\"></div>';
-			rss_div += '</div></div>';
-			rss_div += '<div class=\"ListRss\">';
-			rss_div += '<div id=\"divRss'+i+'\"></div><br/>';
-			rss_div += '</div><br/>';
+			rss_li += '<div id=\"divRss'+i+'\" style="width:100%"></div>';
 			
-			var rss_div2 = '<em class\"aside\"></em>';
-			rss_div2 += '<div id=\"divRss'+i+'\"></div><br/>';
-			
-			new_div.innerHTML = rss_div2;
+			new_div.innerHTML = rss_li;
 			reference_flux.appendChild(new_div);
 
 			  
-			  $('#divRss'+i).FeedEk({
-			   FeedUrl : tdFluxLink.textContent,
+			$('#divRss'+i).FeedEk({
+				FeedUrl : tdFluxLink.textContent,
 			   MaxCount : 3,
-			  });
+			});
+			  
 			
             // on avance le curseur -> la callback onsuccess
             // sera appelée à nouveau
