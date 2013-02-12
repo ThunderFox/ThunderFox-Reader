@@ -1,53 +1,116 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" >
+<!DOCTYPE html>
+<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="stylesheet" media="screen" type="text/css" href="./stylesheets/ThunderFox.css" />
-<link rel="stylesheet" media="screen" type="text/css" href="./stylesheets/headers_tf.css" />
-<link rel="stylesheet" media="screen" type="text/css" href="./stylesheets/lists_tf.css" />
-<title>Thunder Fox</title>
-
-<script type="text/javascript" src="javascripts/jquery-1.6.2.min.js"></script>
-<script type="text/javascript" src="javascripts/thunderfox.js"></script>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, height=device-height" />
+	<title>Thunder Fox</title>
+	<link rel="stylesheet" href="./stylesheets/headers_tf.css"/>
+	<link rel="stylesheet" href="./stylesheets/style_tf.css" media="screen"/>
+	<link rel="stylesheet" type="text/css" href="./stylesheets/stylePhone_tf.css" media="screen and (max-width: 480px)"  />
+  <style type="text/css">
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-size: 10px;
+      background-color: #fff;
+    }
+    body {
+      background: none;
+    }
+    section[role="region"] {
+      margin-bottom: 0.3rem;
+      /*position: relative;*/
+    }
+	article{
+		margin-top : Opx;
+	}
+	table{
+		margin-top : 80px;
+	}
+	
+  </style>
 </head>
-
 <body role="application">
-
-		<section role="region">
+			  <span id="page" name="index"></span>
+			  
+			  <section role="region">
 				<header>
-					<a href="thunderfox.html"><span class="icon icon-back">back</span></a>
 					<menu type="toolbar">
 						<a href="#"><span class="icon icon-menu">menu</span></a>
-						<a href="#"><span class="icon icon-refresh">refresh</span></a>
+						<a href="#"><span class="icon icon-add">add</span></a>
 					</menu>
 					<h1>ThunderFox</h1>
 				</header>
-				<header>
-					<h2>Toutes les news</h2>
-				</header>
-		</section>
-
-	
-		<div style="background: url(./stylesheets/images/example-notifications.png),
-           no-repeat center center; background-size: 100% auto;">
-		   
-		<ul class="overlay">
-			<span id="menu_1"></span>
-
-			<span id="menu_2"></span>
+			 </section>
 			
-			<span id="menu_3"></span>
+				<article style="background: url(./stylesheets/images/example-notifications.png),
+				no-repeat center center; background-size: 100% auto;">
+				<table>
+					<tr>
+						<td class="TDgrand" rowspan="2" colspan="2">
+							<a href="toutesCategories.html">
+							<section class="grand" style="text-align:center">				
+								<header class="sectionHeader">Toutes les news</header>
+								<img src="./images/news.png" title="Toutes les news" align="center" style="height:60%;">
+							</section>
+							</a>
+						</td>
+						<td class="TDnormal">
+							<a href="flux_technologies.html">
+							<section class="technologie" draggable="true" style="text-align:center">
+								<header class="sectionHeader">Technologies</header>
+								<img src="./images/hightech.png" title="Technologies" style="height:60%;">
+							</section>
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td class="TDnormal">
+							<section class="cinema" draggable="true">
+								<header class="sectionHeader">Cinéma</header>
+							</section>
+						</td>
+					</tr>
+					<tr>
+						<td class="TDnormal">
+							<a href="flux_economie.html">
+							<section class="economie" draggable="true">
+								<header class="sectionHeader">Economie</header>
+							</section>
+							</a>
+						</td>
+						<td class="TDnormal">
+							<a href="flux_culture.html">
+							<section class="culture" draggable="true">
+								<header class="sectionHeader">Culture</header>
+							</section>
+							</a>
+						</td>
+						<td class="TDnormal">
+							<a href="flux_sport.html">
+							<section class="sport" draggable="true">
+								<header class="sectionHeader">Sports</header>
+							</section>
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td class="TDnormal">
+							<a href="flux_people.html">
+							<section class="people" draggable="true">
+								<header class="sectionHeader">People</header>
+							</section>
+							</a>
+						</td>
+						<td class="TDdouble" colspan="2">
+							<section class="double">
+								<header class="sectionHeader">À la une</header>
+							</section>
+						</td>
+					</tr>
+				</table>
+		    
+			</article>
 			
-			<span id="menu_4"></span>
-			
-			<span id="menu_5"></span>
-			
-			<span id="menu_6"></span>
-		</ul>
-		
-	<br/>
-
-
 </body>
-
 </html>

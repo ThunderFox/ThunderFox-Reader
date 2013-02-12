@@ -9,10 +9,6 @@
   font-family: "Open Sans", Sans-serif;
 }
 
-.overlay{
-	padding-top:8%;
-}
-
   li {
   display: inline-block;
   width: 100%;
@@ -113,7 +109,7 @@
 }
 
   li dl dt {
-  font: 1.6rem/1em "Open Sans", Sans-serif;
+  font: 1.8rem/1.2em "Open Sans", Sans-serif;
   white-space: nowrap;
   height: 2.2rem;
   overflow: hidden;
@@ -135,7 +131,7 @@
 }
 
   li dl dd {
-  font-size: 0.8rem;
+  font-size: 1rem;
   /*color: #5b5b5b;*/
   white-space: nowrap;
   height: 1.8rem;

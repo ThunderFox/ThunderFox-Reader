@@ -1,40 +1,8 @@
 // PARTIE RSS
 
-$(document).ready(function(){
-  
-			
-});
-
-function OpenBox()
-{
-$('.divSrc').toggle();
-}
-
-function changeFeedUrl(numRss)
-{
-var cnt= 5;
-var showDate=new Boolean();
-showDate=true;
-
-var showDescription=new Boolean();
-showDescription=true;
-
-if($('#txtCount'+numRss).val()!="") cnt=parseInt($('#txtCount'+numRss).val());
-if (! $('#chkDate'+numRss).attr('checked')) showDate=false;
-if (! $('#chkDesc'+numRss).attr('checked')) showDescription=false;
-
- $('#divRss'+numRss).FeedEk({
-   FeedUrl : $('#txtUrl'+numRss).val(),
-   MaxCount : cnt,
-   ShowDesc : showDescription,
-   ShowPubDate: showDate
-  });
-}
-
-
 (function($){
 	$.fn.FeedEk=function(opt){
-		var def={FeedUrl:'',MaxCount:5};
+		var def={FeedUrl:'',MaxCount:5,titre:''};
 		if(opt){$.extend(def,opt)}
 		var idd=$(this).attr('id');
 		if(def.FeedUrl==null||def.FeedUrl==''){
@@ -46,7 +14,8 @@ if (! $('#chkDesc'+numRss).attr('checked')) showDescription=false;
 			$('#'+idd).empty();
 			$.each(data.responseData.feed.entries,function(i,entry){
 				pubdt=new Date(entry.publishedDate);
-				$('#'+idd).append('<li><em class\"aside\"></em><em class="aside end"><time>'+pubdt.toLocaleDateString()+'</time></em><dl><dt>'+entry.title+'</dt><dd><span>'+entry.content+'</span></dd></dl></li>');
+				var content = escapeHtml(entry.content);
+				$('#'+idd).append('<li><em class\"aside\"></em><em class="aside end"><time>'+pubdt.toLocaleDateString()+'</time></em><dl><dt>'+entry.title+'</dt><dd><span>'+def.titre+'</span></dd></dl></li>');
 			})
 			$('#'+idd).append('</li>');
 		}})
@@ -54,26 +23,15 @@ if (! $('#chkDesc'+numRss).attr('checked')) showDescription=false;
 })
 (jQuery);
 
-//Fonction qui gère les onglets
-function multiClass(eltId) {
-		arrLinkId = new Array('_1','_2','_3','_4','_5','_6');
-		intNbLinkElt = new Number(arrLinkId.length);
-		arrClassLink = new Array('current','ghost');
-		strContent = new String()
-		for (i=0; i<intNbLinkElt; i++) {
-			strContent = "menu"+arrLinkId[i];
-			if ( arrLinkId[i] == eltId ) {
-				document.getElementById(arrLinkId[i]).className = arrClassLink[0];
-				document.getElementById(strContent).className = 'on content';
-			} else {
-				document.getElementById(arrLinkId[i]).className = arrClassLink[1];
-				document.getElementById(strContent).className = 'off content';
-			}
-		}
-	}
-	
-	
-	
+function escapeHtml(unsafe) {
+  return unsafe
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+}
+
 
 // PARTIE INDEXDB
 
@@ -106,7 +64,6 @@ function createDatabase(event) {
 function errorOpen(event) {
     window.alert("Erreur ouverture !");
 }
-
 	  
 // on ajoute un listener sur le load de la fenêtre, pour remplir
 // la liste des flux, si présent
@@ -118,16 +75,24 @@ window.addEventListener('load', function(event) {
     request.onupgradeneeded = createDatabase;
 
     request.onsuccess = function(event) {
-        displayList(event.target.result);
-		
+		var page = document.getElementById('page'); 
+		if(page.getAttribute('name') == 'all')
+			displayList_all(event.target.result);
+		else if(page.getAttribute('name') == 'technologies')
+			displayList_tech(event.target.result);
+		else if(page.getAttribute('name') == 'sport')
+			displayList_sport(event.target.result);	
+		else if(page.getAttribute('name') == 'economie')
+			displayList_economie(event.target.result);		
+		else if(page.getAttribute('name') == 'culture')
+			displayList_culture(event.target.result);	
+		else if(page.getAttribute('name') == 'people')
+			displayList_people(event.target.result);	
     }
 }, false);
 
 
-/**
- * fonction qui permet d'afficher le contenu de la BD
- */
-function displayList(db) {
+function displayList_all(db) {
 
     // on ouvre une transaction qui permettra d'effectuer
     // la lecture. uniquement de la lecture -> "readonly"
@@ -187,7 +152,7 @@ function displayList(db) {
 				var reference_flux = document.getElementById('menu_5');	
 				var rss_li = '<li data-state=\"withSource\" data-tag=\"culture\">';
 			}	
-			else{
+			else if(categorie == 'Peop'){
 				var reference_flux = document.getElementById('menu_6');
 				var rss_li = '<li data-state=\"withSource\" data-tag=\"people\">';
 			}	
@@ -199,8 +164,9 @@ function displayList(db) {
 
 			  
 			$('#divRss'+i).FeedEk({
-				FeedUrl : tdFluxLink.textContent,
+			   FeedUrl : tdFluxLink.textContent,
 			   MaxCount : 3,
+			   titre : tdTitre.textContent
 			});
 			  
 			
@@ -210,6 +176,288 @@ function displayList(db) {
             cursor.continue();
         }
     }
-
 }
 
+
+function displayList_tech(db) {
+
+    var transaction = db.transaction(["table_flux"], "readonly");
+    transaction.oncomplete = function(event) {};
+    transaction.onerror = function(event) {
+       window.alert('erreur de transaction lecture ');
+    };
+
+    var fluxStore = transaction.objectStore("table_flux");
+	var i = 1;
+	
+    fluxStore.openCursor().onsuccess = function (event) {
+
+    var cursor = event.target.result;
+	
+        if (cursor) {
+	
+            var _flux = cursor.value; 
+
+			var tr = document.createElement('tr');
+		
+            var tdFluxLink = document.createElement('td');
+            tdFluxLink.textContent = _flux.flux_link;
+
+			var tdTitre = document.createElement('td');
+			tdTitre.textContent = _flux.titre;
+			
+            var tdCategorie = document.createElement('td');
+            tdCategorie.textContent = _flux.categorie;
+
+			
+			var new_div = document.createElement('div');
+			var categorie = tdCategorie.textContent.substring(0,4);
+			
+			if(categorie == 'Tech'){
+				var reference_flux = document.getElementById('flux_rss');
+				var rss_li = '<li data-state=\"withSource\" data-tag=\"technologie\">';
+				rss_li += '<div id=\"divRss'+i+'\" style="width:100%"></div>';
+			
+				new_div.innerHTML = rss_li;
+				reference_flux.appendChild(new_div);
+
+				  
+				$('#divRss'+i).FeedEk({
+					FeedUrl : tdFluxLink.textContent,
+				    MaxCount : 10,
+					titre : tdTitre.textContent
+				});
+			}		
+			
+			i++;
+            cursor.continue();
+        }
+    }
+}
+
+function displayList_sport(db) {
+
+    var transaction = db.transaction(["table_flux"], "readonly");
+    transaction.oncomplete = function(event) {};
+    transaction.onerror = function(event) {
+       window.alert('erreur de transaction lecture ');
+    };
+
+    var fluxStore = transaction.objectStore("table_flux");
+	var i = 1;
+	
+    fluxStore.openCursor().onsuccess = function (event) {
+
+    var cursor = event.target.result;
+	
+        if (cursor) {
+	
+            var _flux = cursor.value; 
+
+			var tr = document.createElement('tr');
+		
+            var tdFluxLink = document.createElement('td');
+            tdFluxLink.textContent = _flux.flux_link;
+
+			var tdTitre = document.createElement('td');
+			tdTitre.textContent = _flux.titre;
+			
+            var tdCategorie = document.createElement('td');
+            tdCategorie.textContent = _flux.categorie;
+
+			
+			var new_div = document.createElement('div');
+			var categorie = tdCategorie.textContent.substring(0,4);
+			
+			if(categorie == 'Spor'){
+				var reference_flux = document.getElementById('flux_rss');
+				var rss_li = '<li data-state=\"withSource\" data-tag=\"technologie\">';
+				rss_li += '<div id=\"divRss'+i+'\" style="width:100%"></div>';
+			
+				new_div.innerHTML = rss_li;
+				reference_flux.appendChild(new_div);
+
+				  
+				$('#divRss'+i).FeedEk({
+					FeedUrl : tdFluxLink.textContent,
+				    MaxCount : 10,
+					titre : tdTitre.textContent
+				});
+			}		
+			
+			i++;
+            cursor.continue();
+        }
+    }
+}
+
+
+function displayList_economie(db) {
+
+    var transaction = db.transaction(["table_flux"], "readonly");
+    transaction.oncomplete = function(event) {};
+    transaction.onerror = function(event) {
+       window.alert('erreur de transaction lecture ');
+    };
+
+    var fluxStore = transaction.objectStore("table_flux");
+	var i = 1;
+	
+    fluxStore.openCursor().onsuccess = function (event) {
+
+    var cursor = event.target.result;
+	
+        if (cursor) {
+	
+            var _flux = cursor.value; 
+
+			var tr = document.createElement('tr');
+		
+            var tdFluxLink = document.createElement('td');
+            tdFluxLink.textContent = _flux.flux_link;
+
+			var tdTitre = document.createElement('td');
+			tdTitre.textContent = _flux.titre;
+			
+            var tdCategorie = document.createElement('td');
+            tdCategorie.textContent = _flux.categorie;
+
+			
+			var new_div = document.createElement('div');
+			var categorie = tdCategorie.textContent.substring(0,4);
+			
+			if(categorie == 'Econ'){
+				var reference_flux = document.getElementById('flux_rss');
+				var rss_li = '<li data-state=\"withSource\" data-tag=\"technologie\">';
+				rss_li += '<div id=\"divRss'+i+'\" style="width:100%"></div>';
+			
+				new_div.innerHTML = rss_li;
+				reference_flux.appendChild(new_div);
+
+				  
+				$('#divRss'+i).FeedEk({
+					FeedUrl : tdFluxLink.textContent,
+				    MaxCount : 10,
+					titre : tdTitre.textContent
+				});
+			}		
+			
+			i++;
+            cursor.continue();
+        }
+    }
+}
+
+
+function displayList_culture(db) {
+
+    var transaction = db.transaction(["table_flux"], "readonly");
+    transaction.oncomplete = function(event) {};
+    transaction.onerror = function(event) {
+       window.alert('erreur de transaction lecture ');
+    };
+
+    var fluxStore = transaction.objectStore("table_flux");
+	var i = 1;
+	
+    fluxStore.openCursor().onsuccess = function (event) {
+
+    var cursor = event.target.result;
+	
+        if (cursor) {
+	
+            var _flux = cursor.value; 
+
+			var tr = document.createElement('tr');
+		
+            var tdFluxLink = document.createElement('td');
+            tdFluxLink.textContent = _flux.flux_link;
+
+			var tdTitre = document.createElement('td');
+			tdTitre.textContent = _flux.titre;
+			
+            var tdCategorie = document.createElement('td');
+            tdCategorie.textContent = _flux.categorie;
+
+			
+			var new_div = document.createElement('div');
+			var categorie = tdCategorie.textContent.substring(0,4);
+			
+			if(categorie == 'Cult'){
+				var reference_flux = document.getElementById('flux_rss');
+				var rss_li = '<li data-state=\"withSource\" data-tag=\"culture\">';
+				rss_li += '<div id=\"divRss'+i+'\" style="width:100%"></div>';
+			
+				new_div.innerHTML = rss_li;
+				reference_flux.appendChild(new_div);
+
+				  
+				$('#divRss'+i).FeedEk({
+					FeedUrl : tdFluxLink.textContent,
+				    MaxCount : 10,
+					titre : tdTitre.textContent
+				});
+			}		
+			
+			i++;
+            cursor.continue();
+        }
+    }
+}
+
+
+function displayList_people(db) {
+
+    var transaction = db.transaction(["table_flux"], "readonly");
+    transaction.oncomplete = function(event) {};
+    transaction.onerror = function(event) {
+       window.alert('erreur de transaction lecture ');
+    };
+
+    var fluxStore = transaction.objectStore("table_flux");
+	var i = 1;
+	
+    fluxStore.openCursor().onsuccess = function (event) {
+
+    var cursor = event.target.result;
+	
+        if (cursor) {
+	
+            var _flux = cursor.value; 
+
+			var tr = document.createElement('tr');
+		
+            var tdFluxLink = document.createElement('td');
+            tdFluxLink.textContent = _flux.flux_link;
+
+			var tdTitre = document.createElement('td');
+			tdTitre.textContent = _flux.titre;
+			
+            var tdCategorie = document.createElement('td');
+            tdCategorie.textContent = _flux.categorie;
+
+			
+			var new_div = document.createElement('div');
+			var categorie = tdCategorie.textContent.substring(0,4);
+			
+			if(categorie == 'Peop'){
+				var reference_flux = document.getElementById('flux_rss');
+				var rss_li = '<li data-state=\"withSource\" data-tag=\"people\">';
+				rss_li += '<div id=\"divRss'+i+'\" style="width:100%"></div>';
+			
+				new_div.innerHTML = rss_li;
+				reference_flux.appendChild(new_div);
+
+				  
+				$('#divRss'+i).FeedEk({
+					FeedUrl : tdFluxLink.textContent,
+				    MaxCount : 10,
+					titre : tdTitre.textContent
+				});
+			}		
+			
+			i++;
+            cursor.continue();
+        }
+    }
+}
