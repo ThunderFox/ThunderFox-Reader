@@ -280,6 +280,17 @@
   li[data-tag="A"]:after { background-color: #e7a300; }
   li[data-tag="B"]:after { background-color: #954fa7; }
 
+ /*State news */
+  li[data-tag="news"]:after  {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -1px;
+  bottom: 0;
+  width: 0.8rem;
+  background-color: #52b6cc; 
+}
+  
 /*State sport */
   li[data-tag="sport"]:after  {
   content: "";
@@ -323,6 +334,18 @@
   width: 0.8rem;
   background-color: rgb(128,255,128);
 }
+
+/*State cinema */
+  li[data-tag="cinema"]:after  {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -1px;
+  bottom: 0;
+  width: 0.8rem;
+  background-color: rgb(200,140,240);
+}
+
 
 /*State people */
   li[data-tag="people"]:after  {

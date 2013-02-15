@@ -15,7 +15,8 @@
 			$.each(data.responseData.feed.entries,function(i,entry){
 				pubdt=new Date(entry.publishedDate);
 				var content = escapeHtml(entry.content);
-				$('#'+idd).append('<li><em class\"aside\"></em><em class="aside end"><time>'+pubdt.toLocaleDateString()+'</time></em><dl><dt>'+entry.title+'</dt><dd><span>'+def.titre+'</span></dd></dl></li>');
+				var title = escapeHtml(entry.title);
+				$('#'+idd).append('<li><em class\"aside\"></em><em class="aside end"><time>'+pubdt.toLocaleDateString()+'</br>'+pubdt.toLocaleTimeString()+'</time><dl></em><a href=\"./article.html?title='+title+'&content='+content+'&date='+pubdt.toLocaleDateString()+'&hours='+pubdt.toLocaleTimeString()+'\" target=\"_blank\" style=\"text-decoration:none\"><dt>'+entry.title+'</dt></a><dd><span>'+def.titre+'</span></dd></dl></li>');
 			})
 			$('#'+idd).append('</li>');
 		}})
@@ -78,6 +79,8 @@ window.addEventListener('load', function(event) {
 		var page = document.getElementById('page'); 
 		if(page.getAttribute('name') == 'all')
 			displayList_all(event.target.result);
+		else if(page.getAttribute('name') == 'actualites')
+			displayList_actu(event.target.result);	
 		else if(page.getAttribute('name') == 'technologies')
 			displayList_tech(event.target.result);
 		else if(page.getAttribute('name') == 'sport')
@@ -86,6 +89,8 @@ window.addEventListener('load', function(event) {
 			displayList_economie(event.target.result);		
 		else if(page.getAttribute('name') == 'culture')
 			displayList_culture(event.target.result);	
+		else if(page.getAttribute('name') == 'cinema')
+			displayList_cinema(event.target.result);		
 		else if(page.getAttribute('name') == 'people')
 			displayList_people(event.target.result);	
     }
@@ -133,29 +138,37 @@ function displayList_all(db) {
 			var categorie = tdCategorie.textContent.substring(0,4);
 			
 			if(categorie == 'Actu'){
-				var reference_flux = document.getElementById('menu_1');
-				var rss_li = '<li data-state=\"withSource\" data-tag=\"new\">';
+				var reference_flux = document.getElementById('menu_0');
+				var rss_li = '<li data-state=\"withSource\" data-tag=\"news\">';
 			}
 			else if(categorie == 'Spor'){
-				var reference_flux = document.getElementById('menu_2');
+				var reference_flux = document.getElementById('menu_1');
 				var rss_li = '<li data-state=\"withSource\" data-tag=\"sport\">';
 			}
 			else if(categorie == 'Econ'){
-				var reference_flux = document.getElementById('menu_3');
+				var reference_flux = document.getElementById('menu_2');
 				var rss_li = '<li data-state=\"withSource\" data-tag=\"economie\">';
 			}	
 			else if(categorie == 'Tech'){
-				var reference_flux = document.getElementById('menu_4');
+				var reference_flux = document.getElementById('menu_3');
 				var rss_li = '<li data-state=\"withSource\" data-tag=\"technologie\">';
 			}	
 			else if(categorie == 'Cult'){
-				var reference_flux = document.getElementById('menu_5');	
+				var reference_flux = document.getElementById('menu_4');	
 				var rss_li = '<li data-state=\"withSource\" data-tag=\"culture\">';
 			}	
+			else if(categorie == 'Cine'){
+				var reference_flux = document.getElementById('menu_5');	
+				var rss_li = '<li data-state=\"withSource\" data-tag=\"cinema\">';
+			}
 			else if(categorie == 'Peop'){
 				var reference_flux = document.getElementById('menu_6');
 				var rss_li = '<li data-state=\"withSource\" data-tag=\"people\">';
 			}	
+			else{
+				var reference_flux = document.getElementById('menu_7');
+				var rss_li = '<li data-state=\"withSource\" data-tag=\"divers\">';
+			}
 			
 			rss_li += '<div id=\"divRss'+i+'\" style="width:100%"></div>';
 			
@@ -172,6 +185,63 @@ function displayList_all(db) {
 			
             // on avance le curseur -> la callback onsuccess
             // sera appelée à nouveau
+			i++;
+            cursor.continue();
+        }
+    }
+}
+
+
+function displayList_actu(db) {
+
+    var transaction = db.transaction(["table_flux"], "readonly");
+    transaction.oncomplete = function(event) {};
+    transaction.onerror = function(event) {
+       window.alert('erreur de transaction lecture ');
+    };
+
+    var fluxStore = transaction.objectStore("table_flux");
+	var i = 1;
+	
+    fluxStore.openCursor().onsuccess = function (event) {
+
+    var cursor = event.target.result;
+	
+        if (cursor) {
+	
+            var _flux = cursor.value; 
+
+			var tr = document.createElement('tr');
+		
+            var tdFluxLink = document.createElement('td');
+            tdFluxLink.textContent = _flux.flux_link;
+
+			var tdTitre = document.createElement('td');
+			tdTitre.textContent = _flux.titre;
+			
+            var tdCategorie = document.createElement('td');
+            tdCategorie.textContent = _flux.categorie;
+
+			
+			var new_div = document.createElement('div');
+			var categorie = tdCategorie.textContent.substring(0,4);
+			
+			if(categorie == 'Actu'){
+				var reference_flux = document.getElementById('flux_rss');
+				var rss_li = '<li data-state=\"withSource\" data-tag=\"news\">';
+				rss_li += '<div id=\"divRss'+i+'\" style="width:100%"></div>';
+			
+				new_div.innerHTML = rss_li;
+				reference_flux.appendChild(new_div);
+
+				  
+				$('#divRss'+i).FeedEk({
+					FeedUrl : tdFluxLink.textContent,
+				    MaxCount : 10,
+					titre : tdTitre.textContent
+				});
+			}		
+			
 			i++;
             cursor.continue();
         }
@@ -271,7 +341,7 @@ function displayList_sport(db) {
 			
 			if(categorie == 'Spor'){
 				var reference_flux = document.getElementById('flux_rss');
-				var rss_li = '<li data-state=\"withSource\" data-tag=\"technologie\">';
+				var rss_li = '<li data-state=\"withSource\" data-tag=\"sport\">';
 				rss_li += '<div id=\"divRss'+i+'\" style="width:100%"></div>';
 			
 				new_div.innerHTML = rss_li;
@@ -386,6 +456,63 @@ function displayList_culture(db) {
 			if(categorie == 'Cult'){
 				var reference_flux = document.getElementById('flux_rss');
 				var rss_li = '<li data-state=\"withSource\" data-tag=\"culture\">';
+				rss_li += '<div id=\"divRss'+i+'\" style="width:100%"></div>';
+			
+				new_div.innerHTML = rss_li;
+				reference_flux.appendChild(new_div);
+
+				  
+				$('#divRss'+i).FeedEk({
+					FeedUrl : tdFluxLink.textContent,
+				    MaxCount : 10,
+					titre : tdTitre.textContent
+				});
+			}		
+			
+			i++;
+            cursor.continue();
+        }
+    }
+}
+
+
+function displayList_cinema(db) {
+
+    var transaction = db.transaction(["table_flux"], "readonly");
+    transaction.oncomplete = function(event) {};
+    transaction.onerror = function(event) {
+       window.alert('erreur de transaction lecture ');
+    };
+
+    var fluxStore = transaction.objectStore("table_flux");
+	var i = 1;
+	
+    fluxStore.openCursor().onsuccess = function (event) {
+
+    var cursor = event.target.result;
+	
+        if (cursor) {
+	
+            var _flux = cursor.value; 
+
+			var tr = document.createElement('tr');
+		
+            var tdFluxLink = document.createElement('td');
+            tdFluxLink.textContent = _flux.flux_link;
+
+			var tdTitre = document.createElement('td');
+			tdTitre.textContent = _flux.titre;
+			
+            var tdCategorie = document.createElement('td');
+            tdCategorie.textContent = _flux.categorie;
+
+			
+			var new_div = document.createElement('div');
+			var categorie = tdCategorie.textContent.substring(0,4);
+			
+			if(categorie == 'Cine'){
+				var reference_flux = document.getElementById('flux_rss');
+				var rss_li = '<li data-state=\"withSource\" data-tag=\"cinema\">';
 				rss_li += '<div id=\"divRss'+i+'\" style="width:100%"></div>';
 			
 				new_div.innerHTML = rss_li;

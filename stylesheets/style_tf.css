@@ -25,9 +25,6 @@
 }
 
 
-
-
-
 article
 {
 	width: 100%;
@@ -137,7 +134,7 @@ td .TDdouble
 
 .cinema
 {
-	background-color : #52b6cc;
+	background-color : rgb(200,140,240);
 	/*background-image : url("test3.jpg");
 	/*width : 124px;*/
 	min-width : 128px;
