@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, height=device-height" />
+	<!--<link rel="stylesheet" href="style2.css" / >-->
+	<!--<meta http-equiv="refresh" content="0;url=" />-->
+	<title>Page de test des Headers</title>
+	<link rel="stylesheet" href="./stylesheets/headers_tf.css"/>
+	<link rel="stylesheet" href="./stylesheets/style_tf.css" media="screen"/>
+	<link rel="stylesheet" href="./stylesheets/fonts_tf.css">
+	<link rel="stylesheet" href="./stylesheets/input_areas_tf.css">
+	<script type="text/javascript" src="javascripts/test.js"></script>
+	<link rel="stylesheet" type="text/css" href="stylePhone.css" media="screen and (max-width: 480px)"  />
+  <style type="text/css">
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-size: 10px;
+      background-color: #fff;
+    }
+    body {
+      background: none;
+    }
+    section[role="region"] {
+      margin-bottom: 0.3rem;
+      /*position: relative;*/
+    }
+	
+	table{
+		margin-top : 80px;
+	}
+	
+	h2.bb-docs {
+      font-size: 1.8rem;
+      font-family: "Open Sans", Sans-serif;
+      font-weight: lighter;
+      color: #666;
+      margin: -1px 0 0;
+      background-color: #f5f5f5;
+      padding: 0.4rem 0.4rem 0.4rem 3rem;
+      border: solid 1px #e8e8e8;
+    }
+	
+	form
+	{ 
+		margin: 1rem 2rem;
+	}
+	
+	.form
+	{
+		margin-top : 100px;
+		margin-right: 20px;
+	}
+	
+  </style>
+</head>
+<body role="application">
+
+				
+	<section role="region">
+	
+		<header>
+			
+			<a href="thunderfox.html"><span class="icon icon-back">back</span></a>
+			
+				<menu type="toolbar">
+					<a href="#"><span class="icon icon-menu">menu</span></a>
+					<a href="#"><span class="icon icon-refresh">refresh</span></a>
+				</menu>
+				
+				<h1>ThunderFox</h1>
+				
+		</header>
+		<header>
+				
+				<h2>Saisie d'un flux</h2>
+				
+		</header>
+	</section>
+			
+	<article style="background: url(stylesheets/images/example-notifications.png),
+           no-repeat center center; background-size: 100% auto;">
+		   
+		<div class="form">
+		<form onsubmit="saveRecord(this); return false" id="fluxform">
+      
+			<p>
+				<input type="text" name="titre" placeholder=" Titre du Flux" required>
+				<button type="reset">Clear</button>
+			</p>
+
+			<p>
+				<textarea name="flux_link" placeholder=" Url du flux" required></textarea>
+				<button type="reset">Clear</button>
+			</p>
+			
+			<p>
+				<select name="categorie" id="categorieID">
+					<option>Actualites</option>
+					<option>Sports</option>
+					<option>Economie</option>
+					<option>Technologies</option>
+					<option>Culture</option>
+					<option>People</option>
+				</select>
+			</p>
+			
+			<p>
+				<button type="submit">Ajouter</button>
+			</p>
+			
+		</form>
+		</div class="form">
+		    
+	</article>
+			
+</body>
+</html>
