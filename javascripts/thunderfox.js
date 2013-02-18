@@ -15,8 +15,20 @@
 			$.each(data.responseData.feed.entries,function(i,entry){
 				pubdt=new Date(entry.publishedDate);
 				var content = escapeHtml(entry.content);
+				console.log(entry.content);
 				var title = escapeHtml(entry.title);
-				$('#'+idd).append('<li><a href=\"./article.html?title='+title+'&content='+content+'&date='+pubdt.toLocaleDateString()+'&hours='+pubdt.toLocaleTimeString()+'\" target=\"_blank\" style=\"text-decoration:none\"><em class\"aside\"></em><em class="aside end"><time>'+pubdt.getDate()+"/"+(pubdt.getMonth()+1)+"/"+pubdt.getFullYear()+'</br>'+pubdt.getHours()+":"+pubdt.getMinutes()+'</time></em><dl><dt>'+entry.title+'</dt><dd><span>'+def.titre+'</span></dd></dl></a></li>');
+				var source = escapeHtml(def.titre);
+				/*var uriSource = window.location;
+				var parameters = uriSource.split("&");
+				var i = O;
+				while(parameters[i]!=null)
+				{
+					i++;
+				}
+				var temp = parameters[i];
+				var pagesource = decodeURI(temp);
+				alert("page source = "+pagesource);*/
+				$('#'+idd).append('<li><a href=\"./article.html?title='+title+'&content='+content+'&source='+source+'&date='+pubdt.toLocaleDateString()+'&hours='+pubdt.toLocaleTimeString()+'\" style=\"text-decoration:none\"><em class\"aside\"></em><em class="aside end"><time>'+pubdt.getDate()+"/"+(pubdt.getMonth()+1)+"/"+pubdt.getFullYear()+'</br>'+pubdt.getHours()+":"+pubdt.getMinutes()+'</time></em><dl><dt>'+entry.title+'</dt><dd><span>'+def.titre+'</span></dd></dl></a></li>');
 			})
 			$('#'+idd).append('</li>');
 		}})

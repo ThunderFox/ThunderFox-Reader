@@ -1,35 +1,117 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 <head>
 	<script language="JavaScript">
 	  function processUser()
 	  {
+	  
 		var parameters = location.search.substring(1).split("&");
 
 		var temp = parameters[0].split("=");
 		title = decodeURI(temp[1]);
+		
 		temp = parameters[1].split("=");
 		content = decodeURI(temp[1]);
+		
 		temp = parameters[2].split("=");
-		date = decodeURI(temp[1]);
+		source = decodeURI(temp[1]);
+		
 		temp = parameters[3].split("=");
+		date = decodeURI(temp[1]);
+		
+		temp = parameters[4].split("=");
 		time = decodeURI(temp[1]);
+		/*temp = parameters[4].split("=");
+		pagesource = decodeURI(temp[1]);
+		
+		alert("page source = "+pagesource);*/
+		
 		
 		document.getElementById("title").innerHTML = title;
 		document.getElementById("content").innerHTML = content;
-		document.getElementById("time").innerHTML = time;
-		document.getElementById("date").innerHTML = date;
+		document.getElementById("source").innerHTML = source;
 	  }
 	</script>
-	<meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
-    <title>Article</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, height=device-height" />
+	<!--<link rel="stylesheet" href="style2.css" / >-->
+	<!--<meta http-equiv="refresh" content="0;url=" />-->
+	<title>Article</title>
+  <link rel="stylesheet" href="stylesheets/headers_tf.css">
+  <link rel="stylesheet" href="stylesheets/page_tf.css">
+  <style type="text/css">
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-size: 10px;
+      background-color: #fff;
+    }
+    body {
+      background: none;
+    }
+    section[role="region"] {
+      margin-bottom: 0.3rem;
+      /*position: relative;*/
+    }
+	
+  </style>
 </head>
-<body onload="processUser();">
-
-    <div id="title"></div>
-	<div id="content"></div>
-	<div id="time"></div>
-	<div id="date"></div>
-    
+<body role="application" onload="processUser();">
+			  <section role="region">
+				<header>
+					<a href="javascript:history.back()"><span class="icon icon-back">back</span></a>
+					<menu type="toolbar">
+						<a href="#"><span class="icon icon-menu">menu</span></a>
+						<a href="#"><span class="icon icon-refresh">refresh</span></a>
+					</menu>
+					<h1>ThunderFox</h1>
+				</header>
+				<header>
+					<h2 id="source"></h2>
+				</header>
+			</section>
+			
+			<div style="min-height: 500px; background: url(./stylesheets/images/example-notifications.png),
+           no-repeat center center; background-size: 100% 100%;">
+		  
+		  
+		    <!--<ul class="overlay">
+		       
+             <li data-state="page">
+              <a href="#">
+                <em class="aside-page">
+                  <!--<span class="icon icon-smsin">Missed call</span>
+				<img src="images/test3.jpg" class="icon icon-page" />
+                </em>
+                <em class="aside end">
+                    <time>5:43PM</time>
+                </em>
+                <dl>
+                  <dt>Titre du flux</dt>
+                  <dd>
+                    <span>JournalDuGeek</span>
+                  </dd>
+                </dl>
+              </a>
+            </li>
+			
+			
+      </ul>-->
+	  
+		<p id="title" class="titre-page">
+			<!--<span id="source" class="source-page"></span>-->
+		</p>
+		
+		<!--<p class="img-page">
+			<img src="images/test3.jpg" class="icon-page" />
+		</p>-->
+		
+		<p id="content" class="desc-page">
+			
+		</p>
+	
+		
+	  </div>
+			
 </body>
 </html>
