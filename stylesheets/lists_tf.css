@@ -21,8 +21,8 @@
   position: relative;
 }
 
-  li > a:first-of-type,
-  li > a:first-of-type  {
+  li >a:first-of-type,
+  a:first-of-type  {
   text-decoration: none;
   color: #000;
   display: inline-block;
@@ -31,7 +31,8 @@
 }
 
 /* State press */
-  li > a:first-of-type:after {
+  ul > a:first-of-type:after,
+  li > a:first-of-type:after  {
   content: "";
   transition: opacity 0.2s ease;
   /*background-color: #b1f1ff;*/
@@ -54,7 +55,7 @@
   float: left;
   display: inline-block;
   position: relative;
-  width: 6.5rem;
+  width: 5.5rem;
   height: 7rem;
   text-align: center;
   overflow: hidden;
@@ -101,7 +102,7 @@
   overflow: hidden;
   padding: 1rem 0.5rem 0 2rem;
   width:80%;
-  margin-left:50px;
+  margin-left:20px;
 }
 
   li .aside ~ dl {

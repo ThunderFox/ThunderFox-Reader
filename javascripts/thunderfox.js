@@ -16,13 +16,20 @@
 				pubdt=new Date(entry.publishedDate);
 				var content = escapeHtml(entry.content);
 				var title = escapeHtml(entry.title);
-				$('#'+idd).append('<li><em class\"aside\"></em><em class="aside end"><time>'+pubdt.toLocaleDateString()+'</br>'+pubdt.toLocaleTimeString()+'</time><dl></em><a href=\"./article.html?title='+title+'&content='+content+'&date='+pubdt.toLocaleDateString()+'&hours='+pubdt.toLocaleTimeString()+'\" target=\"_blank\" style=\"text-decoration:none\"><dt>'+entry.title+'</dt></a><dd><span>'+def.titre+'</span></dd></dl></li>');
+				$('#'+idd).append('<li><a href=\"./article.html?title='+title+'&content='+content+'&date='+pubdt.toLocaleDateString()+'&hours='+pubdt.toLocaleTimeString()+'\" target=\"_blank\" style=\"text-decoration:none\"><em class\"aside\"></em><em class="aside end"><time>'+pubdt.getDate()+"/"+(pubdt.getMonth()+1)+"/"+pubdt.getFullYear()+'</br>'+pubdt.getHours()+":"+pubdt.getMinutes()+'</time></em><dl><dt>'+entry.title+'</dt><dd><span>'+def.titre+'</span></dd></dl></a></li>');
 			})
 			$('#'+idd).append('</li>');
 		}})
 	}
 })
 (jQuery);
+
+/*function dateFrance(Date d) {
+	return d.getDay()+"/"+d.getMonth()+"/"+d.getYear();
+}*/
+
+//if(pubdt.getMonth()<10){"0"+pubdt.getMonth()+1}else{pubdt.getMonth()+1}
+
 
 function escapeHtml(unsafe) {
   return unsafe
