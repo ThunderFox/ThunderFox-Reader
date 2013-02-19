@@ -135,7 +135,8 @@ td .TDdouble
 
 .cinema
 {
-	background-color : rgb(200,140,240);
+	/*background-color : rgb(200,140,240);*/
+	background-color : rgb(60,240,40);
 	/*background-image : url("test3.jpg");
 	/*width : 124px;*/
 	min-width : 128px;
