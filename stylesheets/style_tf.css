@@ -115,7 +115,8 @@ td .TDdouble
 	min-width : 267px;
 	width : 100%;
 	height : 204px;
-	background-color : #52b6cc;
+	/*background-color : #52b6cc;*/
+	background-color: rgb(254,1,39);
 	float : left;
 
 }

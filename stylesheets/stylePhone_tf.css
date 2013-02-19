@@ -1,7 +1,7 @@
 article
 {
 	width : device-width;
-	height : device-height;
+	height : 100%;
 	overflow: auto;
 	position: absolute;
 }
@@ -72,8 +72,9 @@ td .TDdouble
 	/*min-width : 268px;*/
 	min-width : 257px;
 	width : 100%;
-	height : 194px;
-	background-color : #52b6cc;
+	height : 198px;
+	/*background-color : #52b6cc;*/
+	background-color: rgb(254,1,39);
 	float : left;
 
 }
@@ -93,6 +94,15 @@ td .TDdouble
 	background-color : #52b6cc;
 	min-width : 123px;
 	min-height : 96px;
+	background-repeat : no-repeat;
+}
+
+.cinema
+{
+	/*background-color : rgb(200,140,240);*/
+	background-color : rgb(60,240,40);
+	min-width : 128px;
+	min-height : 101px;
 	background-repeat : no-repeat;
 }
 
