@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="./stylesheets/style_tf.css" media="screen"/>
 	<link rel="stylesheet" href="./stylesheets/fonts_tf.css">
 	<link rel="stylesheet" href="./stylesheets/input_areas_tf.css">
-	<script type="text/javascript" src="javascripts/test.js"></script>
+	<script type="text/javascript" src="javascripts/indexeddb.js"></script>
 	<link rel="stylesheet" type="text/css" href="stylePhone.css" media="screen and (max-width: 480px)"  />
   <style type="text/css">
     html, body {
@@ -65,7 +65,6 @@
 			<a href="index.html"><span class="icon icon-back">back</span></a>
 			
 				<menu type="toolbar">
-					<a href="#"><span class="icon icon-menu">menu</span></a>
 					<a href="#"><span class="icon icon-refresh">refresh</span></a>
 				</menu>
 				
@@ -83,7 +82,7 @@
            no-repeat center center; background-size: 100% auto;">
 		   
 		<div class="form">
-		<form onsubmit="saveRecord(this); return false" id="fluxform">
+		<form onsubmit="saveRecord(this); return false;" id="fluxform">
       
 			<p>
 				<input type="text" name="titre" placeholder=" Titre du Flux" required>

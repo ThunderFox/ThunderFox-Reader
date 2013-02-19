@@ -39,7 +39,7 @@ function errorOpen(event) {
  */
 function saveRecord(form) {
 
-alert ("Flux ajouté");
+//alert ("Flux ajouté");
     // création d'un objet contenant les données
     // il sert d'"enregistrement" dans la base
     var flux = {
@@ -65,6 +65,7 @@ alert ("Flux ajouté");
         transaction.oncomplete = function(event) {
             displayList(db);
             window.alert("Flux sauvegardé");
+			
         };
 
         transaction.onerror = function(event) {
@@ -78,12 +79,13 @@ alert ("Flux ajouté");
         // sera effectivement executé lors de la fermeture de la transaction
         var req = fluxStore.add(flux);
         req.onsuccess = function(event) {
-            
+           window.location.replace("indexeddb_list.html"); 
         }
         req.onerror = function(event) {
             window.alert('erreur ajout');
         }
     }
+	
 }
 
 

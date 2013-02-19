@@ -1,5 +1,6 @@
 // PARTIE RSS
 
+
 (function($){
 	$.fn.FeedEk=function(opt){
 		var def={FeedUrl:'',MaxCount:5,titre:''};
@@ -28,7 +29,7 @@
 				var temp = parameters[i];
 				var pagesource = decodeURI(temp);
 				alert("page source = "+pagesource);*/
-				$('#'+idd).append('<li><a href=\"./article.html?title='+title+'&content='+content+'&source='+source+'&date='+pubdt.toLocaleDateString()+'&hours='+pubdt.toLocaleTimeString()+'\" style=\"text-decoration:none\"><em class\"aside\"></em><em class="aside end"><time>'+pubdt.getDate()+"/"+(pubdt.getMonth()+1)+"/"+pubdt.getFullYear()+'</br>'+pubdt.getHours()+":"+pubdt.getMinutes()+'</time></em><dl><dt>'+entry.title+'</dt><dd><span>'+def.titre+'</span></dd></dl></a></li>');
+				$('#'+idd).append('<li><a href=\"./article.html?title='+title+'&content='+content+'&source='+source+'&date='+pubdt.toLocaleDateString()+'&hours='+pubdt.toLocaleTimeString()+'\" style=\"text-decoration:none\"><em class\"aside\"></em><em class="aside end"><time>'+dateFrance(pubdt)+'</br>'+pubdt.getHours()+":"+pubdt.getMinutes()+'</time></em><dl><dt>'+entry.title+'</dt><dd><span>'+def.titre+'</span></dd></dl></a></li>');
 			})
 			$('#'+idd).append('</li>');
 		}})
@@ -36,9 +37,21 @@
 })
 (jQuery);
 
-/*function dateFrance(Date d) {
-	return d.getDay()+"/"+d.getMonth()+"/"+d.getYear();
-}*/
+function dateFrance(d) {
+
+	var date = "";
+	var mois = "";
+	if(d.getMonth()<10){
+		mois = "0"+(d.getMonth()+1)
+	}
+	else{
+	mois = (d.getMonth()+1)
+	}
+	
+	date = d.getDate()+"/"+mois+"/"+d.getFullYear();
+	
+	return date;
+}
 
 //if(pubdt.getMonth()<10){"0"+pubdt.getMonth()+1}else{pubdt.getMonth()+1}
 

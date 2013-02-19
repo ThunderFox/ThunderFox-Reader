@@ -421,3 +421,19 @@
   top: 0px;
   left: 0px;
 }
+
+.supprimer
+{
+	display: inline-block;
+	vertical-align: bottom;
+	float: none;
+	width: 6rem;
+	height: 6rem;
+	margin: 0 -1rem;
+	background: transparent no-repeat center center;
+	font-size: 0;
+	overflow: hidden;
+	position: relative;
+	height: 4.9rem;
+	background-image: url(images/icons/close.png);
+}
