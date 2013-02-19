@@ -1,25 +1,28 @@
+/** Déclaration*/
+ var TableauFlux= new Array();
+
 /**
- * fonction chargÃ©e de crÃ©er la base de donnÃ©e si elle n'existe pas
- * ou si elle nÃ©cessite une mise Ã  jour.
- * AppellÃ©e sur le onupgradeneeded Ã  l'ouverture de la base
+ * fonction chargée de créer la base de donnée si elle n'existe pas
+ * ou si elle nécessite une mise à jour.
+ * Appellée sur le onupgradeneeded à l'ouverture de la base
  */
 function createDatabase(event) {
     var db = event.target.transaction.db;
     
-    // crÃ©ation d'un object store (similaire Ã  une table en SQL)
-    // la clÃ© d'un enregistrement se trouve dans la propriÃ©tÃ© id
-    // de l'enregistrement, et initialisÃ© automatiquement Ã  l'insertion
-    // avec une valeur d'un compteur auto incrÃ©mentÃ©
+    // création d'un object store (similaire à une table en SQL)
+    // la clé d'un enregistrement se trouve dans la propriété id
+    // de l'enregistrement, et initialisé automatiquement à l'insertion
+    // avec une valeur d'un compteur auto incrémenté
     var fluxStore = db.createObjectStore("table_flux",
                                             { keyPath: "id",
                                               autoIncrement: true });
 
-    // crÃ©ation d'un index sur cet object store, sur la propriÃ©tÃ© modele
-    // des objets enregistrÃ©s
+    // création d'un index sur cet object store, sur la propriété modele
+    // des objets enregistrés
 }
 
 /**
- * le callback quand il y a une erreur Ã  l'ouverture
+ * le callback quand il y a une erreur à l'ouverture
  */
 function errorOpen(event) {
     window.alert("Erreur ouverture !");
@@ -28,45 +31,46 @@ function errorOpen(event) {
     
 
 /**
- * fonction appelÃ©e lors de la soumission du formulaire.
+ * fonction appelée lors de la soumission du formulaire.
  * ajoute un enregistrement dans la base
  */
 function saveRecord(form) {
-    // crÃ©ation d'un objet contenant les donnÃ©es
+    // création d'un objet contenant les données
     // il sert d'"enregistrement" dans la base
     var flux = {
         flux_link:  form.elements['flux_link'].value,
+		titre:  form.elements['titre'].value,
         categorie:   form.elements['categorie'].value
     }
 
-    // on ouvre la base, et on dÃ©clare les listeners
+    // on ouvre la base, et on déclare les listeners
     var request = window.webkitIndexedDB.open("BDFlux", 1);
     request.onerror = errorOpen;
     request.onupgradeneeded = createDatabase;
 
     request.onsuccess = function(event) {
-        // ici la base a Ã©tÃ© ouverte avec succÃ©s, il faut ajouter l'enregistrement
+        // ici la base a été ouverte avec succés, il faut ajouter l'enregistrement
 
-        // on rÃ©cupÃ¨re l'objet database
+        // on récupère l'objet database
         var db = event.target.result; 
 
         // on ouvre une transaction qui permettra d'effectuer
-        // les opÃ©rations sur la base
+        // les opérations sur la base
         var transaction = db.transaction(["table_flux"], "readwrite");
         transaction.oncomplete = function(event) {
             displayList(db);
-            window.alert("Flux sauvegardÃ©");
+            window.alert("Flux sauvegardé");
         };
 
         transaction.onerror = function(event) {
            window.alert('erreur de transaction ');
         };
 
-        // on rÃ©cupÃ¨re l'object store dans lequel on veut stocker l'objet
+        // on récupère l'object store dans lequel on veut stocker l'objet
         var fluxStore = transaction.objectStore("table_flux");
 
-        // on crÃ©Ã© l'ordre d'ajouter un enregistrement
-        // sera effectivement executÃ© lors de la fermeture de la transaction
+        // on créé l'ordre d'ajouter un enregistrement
+        // sera effectivement executé lors de la fermeture de la transaction
         var req = fluxStore.add(flux);
         req.onsuccess = function(event) {
             
@@ -83,7 +87,7 @@ function saveRecord(form) {
  * clique sur le bouton "effacer" de la page
  */
 function deleteAllRecords() {
-    // on ouvre la base, et on dÃ©clare les listeners
+    // on ouvre la base, et on déclare les listeners
     var request = window.webkitIndexedDB.open("BDFlux", 1);
     request.onerror = errorOpen;
     request.onupgradeneeded = createDatabase;
@@ -109,24 +113,25 @@ function deleteAllRecords() {
 }
 	  
 	  
-// on ajoute un listener sur le load de la fenÃªtre, pour remplir
-// la liste des flux, si prÃ©sent
+// on ajoute un listener sur le load de la fenêtre, pour remplir
+// la liste des flux, si présent
 // Listenner pour affichage
 window.addEventListener('load', function(event) {
-    // on ouvre la base, et on dÃ©clare les listeners
+    // on ouvre la base, et on déclare les listeners
     var request = window.webkitIndexedDB.open("BDFlux", 1);
     request.onerror = errorOpen;
     request.onupgradeneeded = createDatabase;
 
     request.onsuccess = function(event) {
         displayList(event.target.result);
+		
     }
 }, false);
 
 /**
- * fonction qui efface la ligne sÃ©lÃ©ctionnÃ©e (avec le bouton supprimer)
+ * fonction qui efface la ligne séléctionnée (avec le bouton supprimer)
  */
-function delete_parcours(id){
+function delete_flux(id){
 	console.log(typeof(id));
 	var id=parseInt(id);
 	
@@ -164,19 +169,16 @@ function displayList(db) {
        window.alert('erreur de transaction lecture ');
     };
 
-    // on efface le formulaire
-    var form = document.getElementById('fluxform');
-    form.elements['flux_link'].value = ''
-    form.elements['categorie'].value = ''
     
-    // rÃ©cupÃ©ration de la table html
+    // récupération de la table html
     var list = document.getElementById("listFlux");
     
     // on y efface tout
     list.innerHTML = '';
 
-    // on rÃ©cupÃ¨re l'object store que l'on veut lire
+    // on récupère l'object store que l'on veut lire
     var fluxStore = transaction.objectStore("table_flux");
+	var i = 1;
 	
     fluxStore.openCursor().onsuccess = function (event) {
 
@@ -186,30 +188,33 @@ function displayList(db) {
 	
             var _flux = cursor.value; // un enregistrement
 			
-            // crÃ©ation de la ligne html dans le tableau
+            // création de la ligne html dans le tableau
 			var tr = document.createElement('tr');
 		
             var tdFluxLink = document.createElement('td');
             tdFluxLink.textContent = _flux.flux_link;
             tr.appendChild(tdFluxLink);
 
+			var tdTitre = document.createElement('td');
+			tdTitre.textContent = _flux.titre;
+			tr.appendChild(tdTitre);
+			
             var tdCategorie = document.createElement('td');
             tdCategorie.textContent = _flux.categorie;
             tr.appendChild(tdCategorie);
 			
 			var tdSuppresion=document.createElement('td');
-			tdSuppresion.innerHTML='<input type="button" value="supprimer" onclick="delete_parcours('+_flux.id+');" />';
+			tdSuppresion.innerHTML='<input type="button" value="supprimer" onclick="delete_flux('+_flux.id+');" />';
 			tr.appendChild(tdSuppresion);
 	
             list.appendChild(tr);
 			
-			
             // on avance le curseur -> la callback onsuccess
-            // sera appelÃ©e Ã  nouveau
-           cursor.continue();
+            // sera appelée à nouveau
+			i++;
+            cursor.continue();
         }
     }
 
 }
-   
- 
+

@@ -1,5 +1,3 @@
-/** Déclaration*/
- var TableauFlux= new Array();
 
 /**
  * fonction chargée de créer la base de donnée si elle n'existe pas
@@ -35,6 +33,8 @@ function errorOpen(event) {
  * ajoute un enregistrement dans la base
  */
 function saveRecord(form) {
+
+alert ("Flux ajouté");
     // création d'un objet contenant les données
     // il sert d'"enregistrement" dans la base
     var flux = {
@@ -172,6 +172,8 @@ function displayList(db) {
     
     // récupération de la table html
     var list = document.getElementById("listFlux");
+	
+
     
     // on y efface tout
     list.innerHTML = '';
@@ -184,30 +186,60 @@ function displayList(db) {
 
     var cursor = event.target.result;
 	
+	
         if (cursor) {
 	
+			
             var _flux = cursor.value; // un enregistrement
 			
+			
             // création de la ligne html dans le tableau
-			var tr = document.createElement('tr');
+			var li = document.createElement("li");
+			li.setAttribute("data-state", "new");
+			
+			
+			/*var file = photos.appendChild(document.createElement("input"));
+				file.setAttribute("type", "file");
+				file.setAttribute("size", 70);
+				file.setAttribute("name", "filPhotos[]");*/
+			
+			var emSuppresion=document.createElement("em");
+			emSuppresion.setAttribute("class", "aside end");
+			emSuppresion.innerHTML='<a href="#" onclick="delete_flux('+_flux.id+');"><span class="supprimer">Supprimer</span></a>'; 
+			li.appendChild(emSuppresion);
 		
-            var tdFluxLink = document.createElement('td');
-            tdFluxLink.textContent = _flux.flux_link;
-            tr.appendChild(tdFluxLink);
+            var dlFluxLink = document.createElement("dl");
+			dlFluxLink.setAttribute("style", "margin-left: 20px;")
+			li.appendChild(dlFluxLink);
 
-			var tdTitre = document.createElement('td');
-			tdTitre.textContent = _flux.titre;
-			tr.appendChild(tdTitre);
+			var dtTitre = document.createElement('dt');
+			dtTitre.textContent = _flux.titre;
+			dlFluxLink.appendChild(dtTitre);
 			
-            var tdCategorie = document.createElement('td');
-            tdCategorie.textContent = _flux.categorie;
-            tr.appendChild(tdCategorie);
+			var spanCat = document.createElement('span');
+			spanCat.setAttribute("style", "display: inline-block; margin-left: 5px; color: white; font-style: bold; font-size: 13px;");
+			spanCat.textContent = "Categorie "+_flux.categorie;
+			dlFluxLink.appendChild(spanCat);
 			
-			var tdSuppresion=document.createElement('td');
-			tdSuppresion.innerHTML='<input type="button" value="supprimer" onclick="delete_flux('+_flux.id+');" />';
-			tr.appendChild(tdSuppresion);
+			var ddFluxLink = document.createElement('dd');
+			
+			
+			var spanFlux = document.createElement('span');
+			spanFlux.setAttribute("style", "margin-left: 24px;");
+			spanFlux.textContent = _flux.flux_link;
+			ddFluxLink.appendChild(spanFlux);
+			
+			
+					
+
+			dlFluxLink.appendChild(ddFluxLink);
+			
+            //var tdCategorie = document.createElement('td');
+            //tdCategorie.textContent = _flux.categorie;
+            //li.appendChild(tdCategorie);
+
 	
-            list.appendChild(tr);
+            list.appendChild(li);
 			
             // on avance le curseur -> la callback onsuccess
             // sera appelée à nouveau
