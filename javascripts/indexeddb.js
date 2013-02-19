@@ -1,3 +1,8 @@
+var indexedDB=window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+
+//prefixes of window.IDB objects
+window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
+window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange
 
 /**
  * fonction chargée de créer la base de donnée si elle n'existe pas
@@ -44,7 +49,7 @@ alert ("Flux ajouté");
     }
 
     // on ouvre la base, et on déclare les listeners
-    var request = window.webkitIndexedDB.open("BDFlux", 1);
+    var request = indexedDB.open("BDFlux", 1);
     request.onerror = errorOpen;
     request.onupgradeneeded = createDatabase;
 
@@ -88,7 +93,7 @@ alert ("Flux ajouté");
  */
 function deleteAllRecords() {
     // on ouvre la base, et on déclare les listeners
-    var request = window.webkitIndexedDB.open("BDFlux", 1);
+    var request = indexedDB.open("BDFlux", 1);
     request.onerror = errorOpen;
     request.onupgradeneeded = createDatabase;
 
@@ -118,7 +123,7 @@ function deleteAllRecords() {
 // Listenner pour affichage
 window.addEventListener('load', function(event) {
     // on ouvre la base, et on déclare les listeners
-    var request = window.webkitIndexedDB.open("BDFlux", 1);
+    var request = indexedDB.open("BDFlux", 1);
     request.onerror = errorOpen;
     request.onupgradeneeded = createDatabase;
 
@@ -135,7 +140,7 @@ function delete_flux(id){
 	console.log(typeof(id));
 	var id=parseInt(id);
 	
-	var request2 = window.webkitIndexedDB.open("BDFlux", 1);
+	var request2 = indexedDB.open("BDFlux", 1);
     request2.onerror = errorOpen;
     request2.onupgradeneeded = createDatabase;
 	request2.onsuccess=function(event){
