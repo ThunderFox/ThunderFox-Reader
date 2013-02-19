@@ -345,7 +345,8 @@
   top: -1px;
   bottom: 0;
   width: 0.8rem;
-  background-color: rgb(200,140,240);
+  /*background-color: rgb(200,140,240);*/
+  background-color: rgb(60,240,40);
 }
 
 
