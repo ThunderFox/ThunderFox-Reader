@@ -16,8 +16,9 @@
 			$.each(data.responseData.feed.entries,function(i,entry){
 				pubdt=new Date(entry.publishedDate);
 				var content = escapeHtml(entry.content);
-				console.log(entry.content);
+				//console.log(entry.content);
 				var title = escapeHtml(entry.title);
+				//console.log(title);
 				var source = escapeHtml(def.titre);
 				/*var uriSource = window.location;
 				var parameters = uriSource.split("&");
@@ -58,7 +59,10 @@ function dateFrance(d) {
 
 function escapeHtml(unsafe) {
   return unsafe
-      .replace(/&/g, "&amp;")
+      .replace(/&/g, "et")
+	  .replace(/#/g, "")
+	  .replace(/=/, "")
+	  .replace(/$/, "")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
@@ -269,7 +273,7 @@ function displayList_actu(db) {
 				  
 				$('#divRss'+i).FeedEk({
 					FeedUrl : tdFluxLink.textContent,
-				    MaxCount : 10,
+				    MaxCount : 5,
 					titre : tdTitre.textContent
 				});
 			}		
@@ -326,7 +330,7 @@ function displayList_tech(db) {
 				  
 				$('#divRss'+i).FeedEk({
 					FeedUrl : tdFluxLink.textContent,
-				    MaxCount : 10,
+				    MaxCount : 5,
 					titre : tdTitre.textContent
 				});
 			}		
@@ -382,7 +386,7 @@ function displayList_sport(db) {
 				  
 				$('#divRss'+i).FeedEk({
 					FeedUrl : tdFluxLink.textContent,
-				    MaxCount : 10,
+				    MaxCount : 5,
 					titre : tdTitre.textContent
 				});
 			}		
@@ -439,7 +443,7 @@ function displayList_economie(db) {
 				  
 				$('#divRss'+i).FeedEk({
 					FeedUrl : tdFluxLink.textContent,
-				    MaxCount : 10,
+				    MaxCount : 5,
 					titre : tdTitre.textContent
 				});
 			}		
@@ -496,7 +500,7 @@ function displayList_culture(db) {
 				  
 				$('#divRss'+i).FeedEk({
 					FeedUrl : tdFluxLink.textContent,
-				    MaxCount : 10,
+				    MaxCount : 5,
 					titre : tdTitre.textContent
 				});
 			}		
@@ -553,7 +557,7 @@ function displayList_cinema(db) {
 				  
 				$('#divRss'+i).FeedEk({
 					FeedUrl : tdFluxLink.textContent,
-				    MaxCount : 10,
+				    MaxCount : 5,
 					titre : tdTitre.textContent
 				});
 			}		
@@ -610,7 +614,7 @@ function displayList_people(db) {
 				  
 				$('#divRss'+i).FeedEk({
 					FeedUrl : tdFluxLink.textContent,
-				    MaxCount : 10,
+				    MaxCount : 5,
 					titre : tdTitre.textContent
 				});
 			}		
