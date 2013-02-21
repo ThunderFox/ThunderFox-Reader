@@ -73,7 +73,11 @@ function escapeHtml(unsafe) {
 // PARTIE INDEXDB
 
 /** Déclaration*/
- var TableauFlux= new Array();
+var indexedDB=window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+
+//prefixes of window.IDB objects
+window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
+window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange
 
 /**
  * fonction chargée de créer la base de donnée si elle n'existe pas
@@ -107,7 +111,7 @@ function errorOpen(event) {
 // Listenner pour affichage
 window.addEventListener('load', function(event) {
     // on ouvre la base, et on déclare les listeners
-    var request = window.webkitIndexedDB.open("BDFlux", 1);
+    var request = indexedDB.open("BDFlux", 1);
     request.onerror = errorOpen;
     request.onupgradeneeded = createDatabase;
 
