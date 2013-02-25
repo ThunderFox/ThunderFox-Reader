@@ -135,6 +135,7 @@ window.addEventListener('load', function(event) {
     }
 }, false);
 
+
 /**
  * fonction qui efface la ligne séléctionnée (avec le bouton supprimer)
  */

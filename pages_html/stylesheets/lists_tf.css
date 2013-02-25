@@ -66,6 +66,9 @@
   width: 5.5rem;
   height: 6rem;
   padding-top: 15px;
+  margin-top: -7px;
+  margin-right: 0px;
+  padding-right: 5px;
 }
 
   li .aside:before {
@@ -104,6 +107,8 @@
   padding: 1rem 0.5rem 0 2rem;
   width:80%;
   margin-left:20px;
+  margin-top: -0.1px;
+ 
 }
 
   li .aside ~ dl {
@@ -116,6 +121,8 @@
   height: 2.2rem;
   overflow: hidden;
   text-overflow: ellipsis;
+   padding-right: 10px;
+   margin-right: 5px;
 }
 
   li dl dt strong {
