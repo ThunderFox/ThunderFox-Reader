@@ -16,7 +16,8 @@ Groupe
 *************************
 Fonctionnalités
 *************************
--Design inspiré de l'aaplication Musique de FireFox OS-Récupération des flux 
+-Design inspiré de l'aaplication Musique de FireFox OS
+-Récupération des flux 
 -Affichage des articles par catégories
 -Gestion des flux RSS (Ajout, suppression)
 
